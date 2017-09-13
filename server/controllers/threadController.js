@@ -36,7 +36,7 @@ var getBySlug = (req, res) => {
 
 var createRespon = (req, res) => {
   Thread.find({ slug:req.params.slug })
-  .populate('author', 'username')
+  // .populate('author', 'username')
   .then(result => {
     Respon.create({
       konten: req.body.konten,
