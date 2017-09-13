@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
-import Threadslist from '@/components/Threadslist'
+import ThreadSummary from '@/components/ThreadSummary'
 import ThreadDetail from '@/components/ThreadDetail'
 
 Vue.use(Router)
@@ -15,11 +15,15 @@ export default new Router({
       component: Login
     },
     {
-      path: '/threads',
+      path: '/home',
       component: Home,
       children: [
         {
-          path: 'threads/:slug',
+          path: '',
+          component: ThreadSummary
+        },
+        {
+          path: ':slug',
           component: ThreadDetail,
           props: true
         }

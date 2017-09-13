@@ -1,17 +1,21 @@
 <template>
-  <form @submit.prevent="postNewThread(newPost)">
+  <form @submit.prevent="postNewThread(newPost); clearMe()">
     <fieldset>
       <legend>Post New Question</legend>
+      <div class="alert alert-dismissible alert-warning" v-if=(pesan)>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Well done!</strong> You successfully submit Question.
+      </div>
       <div class="form-group">
-        <label for="inputEmail" class="col-md-3 control-label">Question Title</label>
-        <div class="col-md-9">
+        <label for="inputEmail" >Question Title</label>
+        <div >
           <input type="text" class="form-control" placeholder="title" v-model="newPost.title">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="textArea" class="col-md-3 control-label">Question Detail</label>
-        <div class="col-md-9">
+        <label for="textArea"  >Question Detail</label>
+        <div >
           <textarea class="form-control" rows="3" v-model="newPost.konten"></textarea>
           <span class="help-block">fill form above and anyone can help you.</span>
         </div>
@@ -30,13 +34,19 @@ import { mapActions } from 'vuex'
           title: '',
           konten: '',
           author: `${localStorage.getItem('id')}`
-        }
+        },
+        pesan: ''
       }
     },
     methods: {
       ...mapActions([
         'postNewThread'
-      ])
+      ]),
+      clearMe (){
+        // this.newPost.title = ''
+        // this.newPost.konten = ''
+        this.pesan = 'berhasil post question'
+      }
     }
   }
 </script>

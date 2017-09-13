@@ -49,7 +49,10 @@ var createRespon = (req, res) => {
 
 var destroy = (req, res) => {
   Thread.remove({_id:req.params.id})
-  .then(ok => res.send('data deleted'))
+  .then(ok => {
+    Respon.remove({thread:req.params.id})
+    .then(resDel =>  res.send('data deleted'))
+  })
 }
 
 module.exports = {

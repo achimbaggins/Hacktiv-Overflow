@@ -68,7 +68,7 @@ export default {
           localStorage.setItem('token', get.data.token)
           localStorage.setItem('id', get.data.id)
           localStorage.setItem('username', get.data.username)
-          this.$router.push('/threads')
+          this.$router.push('/home')
         } else {
           this.$router.push('/')
         }
@@ -76,7 +76,7 @@ export default {
     },
     doLogout() {
       localStorage.clear()
-      this.$router.push('/login')
+      this.$router.push('/')
     },
     doRegister() {
       var self = this

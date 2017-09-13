@@ -1,10 +1,11 @@
 <template>
   <div class="container">
-    <div class="col-md-5 col-md-offset-0" id="left_side">
+    <div class="col-md-4 col-md-offset-0" id="left_side">
       <new-thread></new-thread>
     </div>
-    <div class="col-md-7" id="content">
-      <thread-summary v-for="thread in threads" :thread="thread" :key="thread.id"></thread-summary>
+    <div class="col-md-8" id="content">
+      <!-- <thread-summary v-for="thread in threads" :thread="thread" :key="thread.id"></thread-summary> -->
+      <router-view></router-view>
     </div>
   </div>
 </template>

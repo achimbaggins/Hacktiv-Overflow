@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <h1 class="tex-center">{{ head }}</h1>
+    <router-link :to="'/home'">
+      <button type="button" name="button" class="btn btn-primary">Dashboard</button>
+    </router-link>
+    <button type="button" name="button" class="btn btn-danger" @click="doLogout">Logout</button>
     <Threadslist></Threadslist>
   </div>
 </template>
@@ -16,6 +20,12 @@ export default {
   },
   components: {
     Threadslist
+  },
+  methods: {
+    doLogout() {
+      localStorage.clear()
+      this.$router.push('/')
+    }
   }
 }
 

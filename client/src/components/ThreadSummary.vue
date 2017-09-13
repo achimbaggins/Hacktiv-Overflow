@@ -1,24 +1,30 @@
 <template>
-  <div class="panel panel-success">
-    <div class="panel-heading text-left">
-      <router-link :to="'threads/' + thread.slug">
-        <h1 class="panel-title" style="color:white;"><b>{{ thread.title }}</b></h1>
-      </router-link>
+  <div class="">
+    <div class="alert alert-dismissible alert-danger" v-if=(pesan)>
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h3>{{pesan}}</h3>
     </div>
-    <div class="panel-body text-left">
-        {{thread.konten}}
-      <div class="text-right">
-        <button type="button" name="button"class="btn btn-primary" >
-          <span class="glyphicon glyphicon-user"></span> Thread Starter : {{thread.author.username}}
-        </button>
-        <router-link :to="'threads/' + thread.slug">
-          <button type="button" name="button"class="btn btn-warning" >
-            <span class="glyphicon glyphicon-eye-open"></span> Give Respond!
-          </button>
+    <div class="panel panel-success" v-for="thread in threads">
+      <div class="panel-heading text-left">
+        <router-link :to="'/home/' + thread.slug" >
+          <h1 class="panel-title" style="color:white;"><b>{{ thread.title }}</b></h1>
         </router-link>
-        <button type="button" class="btn btn-danger" name="button" v-if="idCreator == thread.author._id" @click="deleteThread(thread._id)">
-          <span class="glyphicon glyphicon-trash"></span> Delete
-        </button>
+      </div>
+      <div class="panel-body text-left">
+          {{thread.konten}}
+        <div class="text-right">
+          <button type="button" name="button"class="btn btn-primary" >
+            <span class="glyphicon glyphicon-user"></span> by : {{thread.author.username.toUpperCase()}}
+          </button>
+          <router-link :to="'/home/' + thread.slug">
+            <button type="button" name="button"class="btn btn-warning" >
+              <span class="glyphicon glyphicon-eye-open"></span> View Detail !
+            </button>
+          </router-link>
+          <button type="button" class="btn btn-danger" name="button" v-if="idCreator == thread.author._id" @click="deleteThread(thread._id); clearMe()">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -30,13 +36,27 @@
     props: ['thread'],
     data () {
       return {
-        idCreator: localStorage.getItem('id')
+        idCreator: localStorage.getItem('id'),
+        pesan: ''
       }
     },
     methods: {
       ...mapActions ([
-        'deleteThread'
-      ])
+        'deleteThread',
+        'getAllThreads',
+        'getThreadDetail'
+      ]),
+      clearMe () {
+        this.pesan = 'yaaah kena hapus...'
+      }
+    },
+    computed: {
+      threads () {
+        return this.$store.state.threads
+      }
+    },
+    created () {
+      this.getAllThreads()
     }
   }
 </script>
@@ -47,6 +67,7 @@
   }
   .btn {
     margin-top: 20px;
+    border-radius: 50px;
   }
   a hover {
     color: white;
