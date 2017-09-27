@@ -14,7 +14,7 @@
           {{thread.konten}}
         <div class="text-right">
           <button type="button" name="button"class="btn btn-primary" >
-            <span class="glyphicon glyphicon-user"></span> by : {{thread.author.username.toUpperCase()}}
+            <span class="glyphicon glyphicon-user"></span> by : {{username || thread.author.username}}
           </button>
           <router-link :to="'/home/' + thread.slug">
             <button type="button" name="button"class="btn btn-warning" >
@@ -37,7 +37,8 @@
     data () {
       return {
         idCreator: localStorage.getItem('id'),
-        pesan: ''
+        pesan: '',
+        username: `${localStorage.getItem('username')}`
       }
     },
     methods: {

@@ -18,6 +18,7 @@ const mutations = {
     state.threads = payload
   },
   isiNewThreadState (state, payload){
+    console.log('data unshift', payload);
     state.threads.unshift(payload)
   },
   spliceThread (state, id){

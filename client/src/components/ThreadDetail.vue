@@ -16,6 +16,10 @@
       </div>
     </div>
 
+    <div class="alert alert-dismissible alert-success" v-if="pesan">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      {{pesan}}.
+    </div>
     <!-- KOMENTAR -->
     <div class="form-group">
       <!-- <label class="control-label">Input addons</label> -->
@@ -29,11 +33,11 @@
     </div>
     <!-- KOMENTAR -->
 
-    {{answer}}
+    <!-- {{answer}} -->
     <div v-if="answers.length > 0">
       <div class="panel panel-primary" v-for="answer in answers">
         <div class="panel-heading">
-          <h3 class="panel-title text-left">Respon dari : {{answer.author.username}}</h3>
+          <h3 class="panel-title text-left">Respon dari : {{username || answer.author.username}}</h3>
         </div>
         <div class="panel-body text-left">
           {{answer.konten}}
@@ -58,7 +62,9 @@ export default {
       komentar: {
         author: `${localStorage.getItem('id')}`,
         konten: ''
-      }
+      },
+      pesan: '',
+      username: `${localStorage.getItem('username')}`
     }
   },
   methods: {
@@ -76,7 +82,9 @@ export default {
     kirimKomentar(){
       this.$http.post(`http://localhost:3000/threads/${this.slug}`, this.komentar)
       .then(({data}) => {
+        this.pesan = 'Komentar kamu sudah diposting!!!'
         this.answers.unshift(data)
+        this.komentar.konten = ''
       })
     }
   },

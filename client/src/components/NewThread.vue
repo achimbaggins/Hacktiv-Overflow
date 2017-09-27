@@ -43,9 +43,9 @@ import { mapActions } from 'vuex'
         'postNewThread'
       ]),
       clearMe (){
+        this.pesan = 'berhasil post question'
         // this.newPost.title = ''
         // this.newPost.konten = ''
-        this.pesan = 'berhasil post question'
       }
     }
   }
